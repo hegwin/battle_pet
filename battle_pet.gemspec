@@ -6,6 +6,6 @@ Gem::Specification.new do |s|
   s.description = "A simple gem to get data from WoW BattlePet API"
   s.authors     = ["Hegwin Wang"]
   s.email       = 'zwt315@163.com'
-  s.files       = ["lib/battle_net.rb"]
+  s.files       = ["lib/battle_pet.rb", "README.md"]
   s.homepage    = 'http://rubygems.org'
 end
