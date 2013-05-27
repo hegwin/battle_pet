@@ -3,9 +3,10 @@ require 'json'
 require 'yaml'
 
 require_relative 'pet_type.rb'
+require_relative 'pet_ability.rb'
 
 class BattlePet
-  attr_accessor :id, :name, :description, :source, :type, :creature
+  attr_accessor :id, :name, :description, :source, :type, :creature, :abilities
 
   REGION_HOSTS = { us: 'us.battle.net',
                    eu: 'eu.battle.net',
@@ -25,6 +26,7 @@ class BattlePet
     @can_battle = info["canBattle"]
     @type = PetType.find info["petTypeId"]
     @creature = info["creatureId"]
+    @abilities = acquire_abilities info["abilities"]
   end
 
   def can_battle?
@@ -39,5 +41,11 @@ class BattlePet
   
   def find_name(locale)
     PET_NAMES[id] && PET_NAMES[id]["name"][locale.to_s]
+  end
+
+  def acquire_abilities(abilities)
+    results = {}
+    abilities.each { |ability| results[ability['requiredLevel']] = PetAbility.new(ability) }
+    results
   end
 end
