@@ -6,7 +6,7 @@ require_relative 'pet_type.rb'
 require_relative 'pet_ability.rb'
 
 class BattlePet
-  attr_accessor :id, :name, :description, :source, :type, :creature, :abilities
+  attr_accessor :id, :name, :description, :source, :type, :creature, :abilities, :added_in_patch
 
   REGION_HOSTS = { us: 'us.battle.net',
                    eu: 'eu.battle.net',
@@ -27,6 +27,7 @@ class BattlePet
     @type = PetType.find info["petTypeId"]
     @creature = info["creatureId"]
     @abilities = acquire_abilities info["abilities"]
+    @added_in_patch = check_patch
   end
 
   def can_battle?
@@ -47,5 +48,14 @@ class BattlePet
     results = {}
     abilities.each { |ability| results[ability['requiredLevel']] = PetAbility.new(ability) }
     results
+  end
+  
+  def check_patch
+    case @id
+    when 1..864     then '5.0'
+    when 865..1013  then '5.1'
+    when 1014..1213 then '5.2'
+    else                 '5.3' 
+    end
   end
 end
