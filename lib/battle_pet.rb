@@ -17,17 +17,8 @@ class BattlePet
   PET_NAMES = YAML.load File.read(File.join(File.dirname(__FILE__), 'battle_pet.yml'))
   
   def initialize(id, locale = :us)
-    url = "http://#{host(locale)}/api/wow/battlePet/species/#{id.to_s}"
-    info = JSON.parse(open(url).read)
-    @id = id
-    @description = info["description"]
-    @name = find_name(locale)
-    @source = info["source"]
-    @can_battle = info["canBattle"]
-    @type = PetType.find info["petTypeId"]
-    @creature = info["creatureId"]
-    @abilities = acquire_abilities info["abilities"]
-    @added_in_patch = check_patch
+    info = get_data_from_api(id, locale)
+    set_attributes(info, locale)    
   end
 
   def can_battle?
@@ -35,6 +26,23 @@ class BattlePet
   end
 
   protected
+  
+  def get_data_from_api(id, locale)
+    url = "http://#{host(locale)}/api/wow/battlePet/species/#{id.to_s}"
+    JSON.parse(open(url).read)
+  end
+  
+  def set_attributes(hash, locale)
+    @id = hash["speciesId"]
+    @description = hash["description"]
+    @name = find_name(locale)
+    @source = hash["source"]
+    @can_battle = hash["canBattle"]
+    @type = PetType.find hash["petTypeId"]
+    @creature = hash["creatureId"]
+    @abilities = acquire_abilities hash["abilities"]
+    @added_in_patch = check_patch
+  end
 
   def host(locale)
     REGION_HOSTS[locale] || REGION_HOSTS[:us]
