@@ -2,9 +2,6 @@ require 'open-uri'
 require 'json'
 require 'yaml'
 
-require_relative 'pet_type.rb'
-require_relative 'pet_ability.rb'
-
 class BattlePet
   attr_accessor :id, :name, :description, :source, :type, :creature, :abilities, :added_in_patch
 
@@ -38,7 +35,7 @@ class BattlePet
     @description = data["description"]
     @source = data["source"]
     @can_battle = data["canBattle"]
-    @type = PetType.find data["petTypeId"]
+    @type = Type.find data["petTypeId"]
     @creature = data["creatureId"]
     @added_in_patch = BattlePet.check_patch(id)
     @abilities = acquire_abilities data["abilities"]
@@ -54,7 +51,7 @@ class BattlePet
 
   def acquire_abilities(abilities)
     results = {}
-    abilities.each { |ability| results[ability['requiredLevel']] = PetAbility.new(ability) }
+    abilities.each { |ability| results[ability['requiredLevel']] = Ability.new(ability) }
     results
   end
   
@@ -67,3 +64,6 @@ class BattlePet
     end
   end
 end
+
+require 'battle_pet/type'
+require 'battle_pet/ability'

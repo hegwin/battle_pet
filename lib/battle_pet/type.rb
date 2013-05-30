@@ -1,4 +1,4 @@
-class PetType
+class BattlePet::Type
   PET_TYPES = { 0 => 'Humanoid',
                 1 => 'Dragonkin',
                 2 => 'Flying',
