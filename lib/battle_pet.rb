@@ -11,8 +11,6 @@ class BattlePet
                    tw: 'tw.battle.net',
                    cn: 'www.battlenet.com.cn'}
 
-  PET_NAMES = YAML.load File.read(File.join(File.dirname(__FILE__), 'battle_pet.yml'))
-  
   def initialize(id, locale = :us)
     data = BattlePet.parse_data_from_api(id, locale)
     set_attributes(data, locale)
@@ -31,7 +29,7 @@ class BattlePet
   
   def set_attributes(data, locale)
     @id = data["speciesId"]
-    @name = BattlePet.find_name(id, locale)
+    @name = data["name"]
     @description = data["description"]
     @source = data["source"]
     @can_battle = data["canBattle"]
@@ -45,10 +43,6 @@ class BattlePet
     REGION_HOSTS[locale] || REGION_HOSTS[:us]
   end
   
-  def self.find_name(id, locale)
-    PET_NAMES[id] && PET_NAMES[id]["name"][locale.to_s]
-  end
-
   def acquire_abilities(abilities)
     results = {}
     abilities.each { |ability| results[ability['requiredLevel']] = Ability.new(ability) }

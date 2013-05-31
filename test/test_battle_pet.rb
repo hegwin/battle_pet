@@ -15,13 +15,6 @@ class BattlePetTest < Test::Unit::TestCase
     assert_equal 'us.battle.net', BattlePet.host(:ca)
   end
 
-  def test_find_name
-    assert_equal '机械松鼠', BattlePet.find_name(39, :cn)
-    assert_equal 'Adder', BattlePet.find_name(635, :us)
-    assert_equal nil, BattlePet.find_name(1, :cn)
-    assert_equal nil, BattlePet.find_name(39, :ca)
-  end
-
   def test_check_patch
     (1..864).to_a.sample(5) { |i| assert_equal '5.0', BattlePet.check_patch(i) }
     (865..1013).to_a.sample(5) { |i| assert_equal '5.1', BattlePet.check_patch(i) }
