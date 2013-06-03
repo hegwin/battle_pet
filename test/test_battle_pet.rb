@@ -22,4 +22,16 @@ class BattlePetTest < Test::Unit::TestCase
     (1213..1400).to_a.sample(5) { |i| assert_equal '5.3', BattlePet.check_patch(i) }
   end
 
+  def test_parse_source
+    assert_equal({ "Quest" => "Egg Wave", "Zone" => "Mount Hyjal" }, BattlePet.parse_source("Quest: Egg Wave\n\nZone: Mount Hyjal\n\n\n\n", :us))
+    assert_equal({ "Profession" => "Engineering" }, BattlePet.parse_source("Profession: Engineering", :us))
+    assert_equal({ "Profession" => "Archaeology" }, BattlePet.parse_source("Profession: Archaeology", :us))
+    assert_equal({ "Profession" => "Enchanting", "Formula" => "Enchanted Lantern" }, BattlePet.parse_source("Profession: Enchanting (525)\n\nFormula: Enchanted Lantern", :us))
+    assert_equal({ "Achievement" => "Rock Lover", "Category" => "Quests" }, BattlePet.parse_source("Achievement: Rock Lover\n\nCategory: Quests", :us))
+    assert_equal({ "Promotion" => "Cataclysm Collector's Edition" }, BattlePet.parse_source("Promotion: Cataclysm Collector's Edition", :us))
+    assert_equal({ "Promotion" => "StarCraft II: Wings of Liberty Collector's Edition" }, BattlePet.parse_source("Promotion: StarCraft II: Wings of Liberty Collector's Edition", :us))
+    # TODO
+    #assert_equal({ "Vendor" => "Guild Vendor", "Zone" => "Stormwind, Orgrimmar", "Cost" => 300 }, BattlePet.parse_source("Vendor: Guild Vendor\n\nZone: Stormwind, Orgrimmar\n\nCost: 300TINTERFACE\\MONEYFRAME\\UI-GOLDICON.BLP:0\n\n", :us))
+  end
+
 end

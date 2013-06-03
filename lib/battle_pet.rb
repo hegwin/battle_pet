@@ -31,7 +31,7 @@ class BattlePet
     @id = data["speciesId"]
     @name = data["name"]
     @description = data["description"]
-    @source = data["source"]
+    @source = BattlePet.parse_source data["source"], locale
     @can_battle = data["canBattle"]
     @type = Type.find data["petTypeId"]
     @creature = data["creatureId"]
@@ -56,6 +56,17 @@ class BattlePet
     when 1014..1213 then '5.2'
     else                 '5.3' 
     end
+  end
+
+  def self.parse_source(str_source, locale)
+    hash_source = {}
+    str_source.split(/\n+/).each do |line|
+      match_data = line.match(": ") 
+      k = match_data.pre_match
+      v =  match_data.post_match.gsub(/\(\d+\)/, '').strip
+      hash_source[k] = v
+    end
+    hash_source
   end
 end
 
