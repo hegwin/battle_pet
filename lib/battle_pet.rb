@@ -60,8 +60,9 @@ class BattlePet
 
   def self.parse_source(str_source, locale)
     hash_source = {}
+    translator = Translator.new(locale)
     str_source.split(/\n+/).each do |line|
-      match_data = line.match(": ") 
+      match_data = line.match(translator.colon) 
       k = match_data.pre_match
       v =  match_data.post_match.gsub(/\(\d+\)/, '').strip
       hash_source[k] = v
@@ -72,3 +73,4 @@ end
 
 require 'battle_pet/type'
 require 'battle_pet/ability'
+require 'battle_pet/translator'

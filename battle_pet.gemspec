@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'battle_pet'
-  s.version     = '0.2.1'
+  s.version     = '0.2.2'
   s.date        = '2013-06-03'
   s.summary     = "WoW BattlePet"
   s.description = "A simple gem to get data from WoW BattlePet API"
@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.files       = [ "lib/battle_pet.rb",
                     "lib/battle_pet/ability.rb",
                     "lib/battle_pet/type.rb",
+                    "lib/battle_pet/translator.rb",
                     "test/data/mechanical_squirrel_cn.json",
                     "test/data/mechanical_squirrel_us.json",
                     "test/test_battle_pet.rb",
