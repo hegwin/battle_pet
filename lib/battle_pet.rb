@@ -9,7 +9,7 @@ class BattlePet
                    eu: 'eu.battle.net',
                    kr: 'kr.battle.net',
                    tw: 'tw.battle.net',
-                   cn: 'www.battlenet.com.cn'}
+                   cn: 'www.battlenet.com.cn' }
 
   def initialize(id, locale = :us)
     data = BattlePet.parse_data_from_api(id, locale)
@@ -59,15 +59,26 @@ class BattlePet
   end
 
   def self.parse_source(str_source, locale)
-    hash_source = {}
     translator = Translator.new(locale)
+    hash_source = {}
     str_source.split(/\n+/).each do |line|
       match_data = line.match(translator.colon) 
       k = match_data.pre_match
-      v =  match_data.post_match.gsub(/\(\d+\)/, '').strip
+      v = match_data.post_match.gsub(/\(\d+\)/, '').strip
+      v = parse_cost(v) if k == translator.cost
       hash_source[k] = v
     end
     hash_source
+  end
+
+  def self.parse_cost(str_cost)
+    num = str_cost.match(/^\d*/).to_s
+    unit = case str_cost
+           when /GOLDICON/   then 'G'
+           when /SILVERICON/ then 'S'
+           else              ''
+           end
+    num + unit
   end
 end
 

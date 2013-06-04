@@ -30,8 +30,13 @@ class BattlePetTest < Test::Unit::TestCase
     assert_equal({ "Achievement" => "Rock Lover", "Category" => "Quests" }, BattlePet.parse_source("Achievement: Rock Lover\n\nCategory: Quests", :us))
     assert_equal({ "Promotion" => "Cataclysm Collector's Edition" }, BattlePet.parse_source("Promotion: Cataclysm Collector's Edition", :us))
     assert_equal({ "Promotion" => "StarCraft II: Wings of Liberty Collector's Edition" }, BattlePet.parse_source("Promotion: StarCraft II: Wings of Liberty Collector's Edition", :us))
-    # TODO
-    #assert_equal({ "Vendor" => "Guild Vendor", "Zone" => "Stormwind, Orgrimmar", "Cost" => 300 }, BattlePet.parse_source("Vendor: Guild Vendor\n\nZone: Stormwind, Orgrimmar\n\nCost: 300TINTERFACE\\MONEYFRAME\\UI-GOLDICON.BLP:0\n\n", :us))
+    assert_equal({ "Vendor" => "Guild Vendor", "Zone" => "Stormwind, Orgrimmar", "Cost" => "300G" }, BattlePet.parse_source("Vendor: Guild Vendor\n\nZone: Stormwind, Orgrimmar\n\nCost: 300TINTERFACE\\MONEYFRAME\\UI-GOLDICON.BLP:0\n\n", :us))
+  end
+
+  def test_parse_cost
+    assert_equal "300G", BattlePet.parse_cost('300TINTERFACE\\MONEYFRAME\\UI-GOLDICON.BLP:0')
+    assert_equal "50S", BattlePet.parse_cost('50TINTERFACE\\MONEYFRAME\\UI-SILVERICON.BLP:0')
+    assert_equal "90", BattlePet.parse_cost('90 ')
   end
 
 end
