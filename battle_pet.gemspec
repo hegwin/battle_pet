@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'battle_pet'
-  s.version     = '0.2.3'
-  s.date        = '2013-06-04'
+  s.version     = '0.2.4'
+  s.date        = '2013-06-05'
   s.summary     = "WoW BattlePet"
   s.description = "A simple gem to get data from WoW BattlePet API"
   s.authors     = ["Hegwin Wang"]
@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
                     "test/data/mechanical_squirrel_cn.json",
                     "test/data/mechanical_squirrel_us.json",
                     "test/test_battle_pet.rb",
+                    "LICENSE",
                     "README.md",
                     "Rakefile" ]
   s.homepage    = 'https://github.com/hegwin/battle_pet'

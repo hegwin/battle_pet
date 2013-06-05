@@ -14,3 +14,7 @@ pet = BattlePet.new(39)
 ## Test
 
 `$ rake test`
+
+## License
+
+Copyright (c) 2013 Hegwin Wang. See [LICENSE](https://github.com/hegwin/battle_pet/blob/master/LICENSE) for details.
