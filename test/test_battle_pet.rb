@@ -3,6 +3,19 @@ require 'test/unit'
 require 'battle_pet'
 
 class BattlePetTest < Test::Unit::TestCase
+  def setup
+    @pet = BattlePet.new(1150)
+  end
+
+  def test_initialize
+    assert_equal 1150, @pet.id
+    assert_equal "Ashstone Core", @pet.name
+    assert_equal "The cooled core of Golemagg, it appears to retain some semi-sentient properties.", @pet.description
+    assert_equal "inv_elemental_eternal_shadow", @pet.icon
+    assert_equal({ 'Drop' => 'Golemagg the Incinerator', 'Zone' => 'Molten Core' }, @pet.source)
+    assert_equal true, @pet.can_battle?
+    assert_equal 68666, @pet.creature
+  end
   
   def test_parse_data_from_api
     assert_equal JSON.parse(File.read(File.join(File.dirname(__FILE__), 'data/mechanical_squirrel_us.json'))),
@@ -37,6 +50,10 @@ class BattlePetTest < Test::Unit::TestCase
     assert_equal "300G", BattlePet.parse_cost('300TINTERFACE\\MONEYFRAME\\UI-GOLDICON.BLP:0')
     assert_equal "50S", BattlePet.parse_cost('50TINTERFACE\\MONEYFRAME\\UI-SILVERICON.BLP:0')
     assert_equal "90", BattlePet.parse_cost('90 ')
+  end
+
+  def test_icon_url
+    assert_equal "http://media.blizzard.com/wow/icons/56/inv_elemental_eternal_shadow.jpg", @pet.icon_url
   end
 
 end

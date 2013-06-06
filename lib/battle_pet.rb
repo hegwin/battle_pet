@@ -3,7 +3,7 @@ require 'json'
 require 'yaml'
 
 class BattlePet
-  attr_accessor :id, :name, :description, :source, :type, :creature, :abilities, :added_in_patch
+  attr_accessor :id, :name, :description, :source, :type, :creature, :abilities, :added_in_patch, :icon
 
   REGION_HOSTS = { us: 'us.battle.net',
                    eu: 'eu.battle.net',
@@ -20,6 +20,10 @@ class BattlePet
     @can_battle
   end
 
+  def icon_url
+    "http://media.blizzard.com/wow/icons/56/#{icon}.jpg"
+  end
+
   protected
   
   def self.parse_data_from_api(id, locale)
@@ -31,6 +35,7 @@ class BattlePet
     @id = data["speciesId"]
     @name = data["name"]
     @description = data["description"]
+    @icon = data["icon"]
     @source = BattlePet.parse_source data["source"], locale
     @can_battle = data["canBattle"]
     @type = Type.find data["petTypeId"]
