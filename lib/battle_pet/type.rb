@@ -4,7 +4,7 @@ class BattlePet::Type
                 2 => 'Flying',
                 3 => 'Undead',
                 4 => 'Critter',
-                5 => 'Magical',
+                5 => 'Magic',
                 6 => 'Elemental',
                 7 => 'Beast',
                 8 => 'Aquatic',
