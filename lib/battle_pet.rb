@@ -13,7 +13,7 @@ class BattlePet
 
   def initialize(id, locale = :us)
     data = BattlePet.parse_data_from_api(id, locale)
-    set_attributes(data, locale)
+    set_attributes(data, locale) if data
   end
 
   def can_battle?
@@ -28,7 +28,20 @@ class BattlePet
   
   def self.parse_data_from_api(id, locale)
     url = "http://#{host(locale)}/api/wow/battlePet/species/#{id.to_s}"
-    JSON.parse(open(url).read)
+    tried_times = 0
+    begin
+      response = open(url)
+    rescue OpenURI::HTTPError => e
+      if e.message =~ /404/
+        warn '[WARNING] Pet ID Incorrect'
+      elsif e.message =~ /500/
+        warn '[WARNING] Access denied.'
+      elsif tried_times < 3
+        tried_times += 1
+        retry
+      end
+    end
+    response ? JSON.parse(response.read) : nil
   end
   
   def set_attributes(data, locale)
