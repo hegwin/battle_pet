@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'battle_pet'
-  s.version     = '0.2.8'
-  s.date        = '2013-06-13'
+  s.version     = '0.2.9'
+  s.date        = '2013-06-14'
   s.summary     = "WoW BattlePet"
   s.description = "A simple gem to get data from WoW BattlePet API"
   s.authors     = ["Hegwin Wang"]

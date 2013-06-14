@@ -80,10 +80,14 @@ class BattlePet
     translator = Translator.new(locale)
     hash_source = {}
     str_source.split(/\n+/).each do |line|
-      match_data = line.match(translator.colon) 
-      k = match_data.pre_match
-      v = match_data.post_match.gsub(/\(\d+\)/, '').strip
-      v = parse_cost(v) if k == translator.cost
+      if match_data = line.match(translator.colon) 
+        k = match_data.pre_match
+        v = match_data.post_match.gsub(/\(\d+\)/, '').strip
+        v = parse_cost(v) if k == translator.cost
+      else
+        k = line
+        v = ""
+      end
       hash_source[k] = v
     end
     hash_source

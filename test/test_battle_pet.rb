@@ -44,6 +44,7 @@ class BattlePetTest < Test::Unit::TestCase
     assert_equal({ "Promotion" => "Cataclysm Collector's Edition" }, BattlePet.parse_source("Promotion: Cataclysm Collector's Edition", :us))
     assert_equal({ "Promotion" => "StarCraft II: Wings of Liberty Collector's Edition" }, BattlePet.parse_source("Promotion: StarCraft II: Wings of Liberty Collector's Edition", :us))
     assert_equal({ "Vendor" => "Guild Vendor", "Zone" => "Stormwind, Orgrimmar", "Cost" => "300G" }, BattlePet.parse_source("Vendor: Guild Vendor\n\nZone: Stormwind, Orgrimmar\n\nCost: 300TINTERFACE\\MONEYFRAME\\UI-GOLDICON.BLP:0\n\n", :us))
+    assert_equal({ "Pet Store" => "" }, BattlePet.parse_source("Pet Store", :us))
   end
 
   def test_parse_cost
