@@ -69,10 +69,11 @@ class BattlePet
   
   def self.check_patch(id)
     case id
-    when 1..864     then '5.0'
-    when 865..1013  then '5.1'
-    when 1014..1213 then '5.2'
-    else                 '5.3' 
+    when 1226..1248, 1184, 1200, 1205 then '5.3'
+    when 1174..1213                   then '5.2'
+    when 868..1168                    then '5.1'
+    when 1..864                       then '5.0'
+    else                                   'unknown'
     end
   end
 

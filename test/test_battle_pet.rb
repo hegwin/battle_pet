@@ -30,9 +30,9 @@ class BattlePetTest < Test::Unit::TestCase
 
   def test_check_patch
     (1..864).to_a.sample(5) { |i| assert_equal '5.0', BattlePet.check_patch(i) }
-    (865..1013).to_a.sample(5) { |i| assert_equal '5.1', BattlePet.check_patch(i) }
-    (1014..1213).to_a.sample(5) { |i| assert_equal '5.2', BattlePet.check_patch(i) }
-    (1213..1400).to_a.sample(5) { |i| assert_equal '5.3', BattlePet.check_patch(i) }
+    (868..1168).to_a.sample(5) { |i| assert_equal '5.1', BattlePet.check_patch(i) }
+    ((1174..1213).to_a - [1184, 1200, 1205]).sample(5) { |i| assert_equal '5.2', BattlePet.check_patch(i) }
+    [(1226..1248).to_a, 1184, 1200, 1205].flatten.sample(5) { |i| assert_equal '5.3', BattlePet.check_patch(i) }
   end
 
   def test_parse_source
